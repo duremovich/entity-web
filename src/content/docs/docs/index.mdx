@@ -1,0 +1,52 @@
+---
+title: entity docs
+description: User documentation for the entity media server.
+template: splash
+hero:
+  tagline: media server for projection mapping. open-core. built for live shows.
+  image:
+    file: ../../../assets/mark.svg
+  actions:
+    - text: Get started
+      link: /docs/getting-started/install/
+      icon: right-arrow
+      variant: primary
+    - text: View source
+      link: https://github.com/duremovich/Entity
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Get started" icon="rocket">
+    Install entity, open your first project, and put a clip on the timeline.
+    [Start here →](/docs/getting-started/install/)
+  </Card>
+
+  <Card title="Concepts" icon="puzzle">
+    How projects, the timeline, sections, screens, and outputs fit together.
+    [Read the concepts →](/docs/concepts/)
+  </Card>
+
+  <Card title="Projection" icon="seti:image">
+    Anchor-point calibration, soft edges, and multi-projector setups.
+    [Map a projector →](/docs/projection/)
+  </Card>
+
+  <Card title="Control" icon="setting">
+    Drive entity from OSC, Bitfocus Companion, or scripted automation.
+    [Wire up control →](/docs/control/)
+  </Card>
+
+  <Card title="Plugins" icon="open-book">
+    Install plugins, or write your own — control-plane or hot-path.
+    [Plugin guide →](/docs/plugins/)
+  </Card>
+
+  <Card title="Troubleshooting" icon="warning">
+    What to check when output freezes, the screen goes black, or playback
+    stutters.
+    [Diagnose →](/docs/troubleshooting/)
+  </Card>
+</CardGrid>

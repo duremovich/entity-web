@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Frame-accurate playback and projection mapping. Open-core. Built for live shows.',
+  ogImage = '/brand/png/social/og-1200x630.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://entitymedia.art');
+const ogImageAbs = new URL(ogImage, Astro.site ?? 'https://entitymedia.art').toString();
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.toString()} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/brand/svg/mark.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/png/icon/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/brand/png/icon/favicon-16.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/brand/png/icon/apple-touch-icon-180.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1f0a35" />
+
+    <!-- OG / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:url" content={canonical.toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  main {
+    min-height: 60vh;
+  }
+</style>

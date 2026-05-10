@@ -1,0 +1,130 @@
+---
+// "Built in the open" strip.
+---
+
+<section class="oss">
+  <div class="oss__inner">
+    <div class="oss__copy">
+      <p class="eyebrow">Open core</p>
+      <h2>Built in the open</h2>
+      <p>
+        The engine is GPLv3. The plugin SDK is Apache 2.0 — write a commercial
+        plugin without contaminating it. Read the source, file issues, send a
+        patch.
+      </p>
+      <div class="oss__cta">
+        <a
+          href="https://github.com/duremovich/Entity"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="oss__link"
+        >
+          github.com/duremovich/Entity ↗
+        </a>
+        <a href="/docs/plugins/" class="oss__link oss__link--ghost">
+          Plugin authoring →
+        </a>
+      </div>
+    </div>
+    <div class="oss__badges">
+      <div class="badge">
+        <span class="badge__label">core</span>
+        <span class="badge__value">GPLv3</span>
+      </div>
+      <div class="badge badge--accent">
+        <span class="badge__label">plugin SDK</span>
+        <span class="badge__value">Apache 2.0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .oss {
+    padding: 64px 32px;
+  }
+  .oss__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px;
+    border-radius: 16px;
+    border: 1px solid var(--color-line);
+    background: linear-gradient(
+      135deg,
+      rgba(58, 26, 90, 0.4),
+      rgba(31, 10, 53, 0.2)
+    );
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .oss h2 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 12px 0 16px;
+  }
+  .oss p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    max-width: 52ch;
+    margin: 0 0 24px;
+  }
+  .oss__cta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .oss__link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .oss__link:hover {
+    color: var(--color-iris-to);
+  }
+  .oss__link--ghost {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+  }
+  .oss__badges {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .badge {
+    padding: 16px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--color-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    background: rgba(0, 0, 0, 0.25);
+  }
+  .badge__label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-ink-dim);
+  }
+  .badge__value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .badge--accent .badge__value {
+    color: var(--color-accent);
+  }
+  @media (max-width: 880px) {
+    .oss__inner {
+      grid-template-columns: 1fr;
+      padding: 32px;
+      gap: 32px;
+    }
+  }
+</style>

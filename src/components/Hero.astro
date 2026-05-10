@@ -1,0 +1,132 @@
+---
+// Landing hero.
+---
+
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow">media server</p>
+      <h1>
+        Frame-accurate playback.<br />
+        <span class="text-body-grad">Built for live shows.</span>
+      </h1>
+      <p class="hero__lede">
+        Multi-layer video, projection mapping, OSC control. Open-core, written
+        in modern C++, designed for the moment the curtain goes up — not the
+        moment a marketing video renders.
+      </p>
+      <div class="hero__cta">
+        <a href="/download/" class="btn btn--primary">Download</a>
+        <a href="/docs/" class="btn btn--ghost">Read the docs →</a>
+      </div>
+      <p class="hero__meta">
+        Windows today · macOS &amp; Linux on the roadmap · GPLv3 + Apache 2.0
+        plugin SDK
+      </p>
+    </div>
+    <div class="hero__mark" aria-hidden="true">
+      <img src="/brand/svg/mark.svg" alt="" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 96px 32px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(
+      ellipse at top right,
+      rgba(255, 122, 46, 0.12),
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+  .hero__inner {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero__copy h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 16px 0 24px;
+  }
+  .hero__lede {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 56ch;
+    color: var(--color-ink-dim);
+    margin: 0 0 32px;
+  }
+  .hero__cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+  }
+  .btn--primary {
+    background: var(--color-accent);
+    color: #1a0928;
+  }
+  .btn--primary:hover {
+    background: #ff8c45;
+    transform: translateY(-1px);
+  }
+  .btn--ghost {
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+  .btn--ghost:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .hero__meta {
+    font-size: 13px;
+    font-family: var(--font-mono);
+    color: var(--color-ink-dim);
+    margin: 0;
+  }
+  .hero__mark img {
+    width: 100%;
+    max-width: 360px;
+    margin-left: auto;
+    display: block;
+    filter: drop-shadow(0 24px 80px rgba(255, 122, 46, 0.15));
+  }
+  @media (max-width: 880px) {
+    .hero {
+      padding: 64px 24px 48px;
+    }
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .hero__mark img {
+      max-width: 240px;
+      margin: 0;
+    }
+  }
+</style>

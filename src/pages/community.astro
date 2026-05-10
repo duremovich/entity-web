@@ -1,0 +1,123 @@
+---
+import Layout from '../components/Layout.astro';
+---
+
+<Layout
+  title="Community — entity"
+  description="Where to find the entity community."
+>
+  <section class="community">
+    <div class="community__inner">
+      <p class="eyebrow">Community</p>
+      <h1>Find us where the code is.</h1>
+      <p class="community__lede">
+        entity is developed in the open. File issues, send patches, ask
+        questions.
+      </p>
+
+      <div class="community__links">
+        <a
+          href="https://github.com/duremovich/Entity"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community__card"
+        >
+          <h2>GitHub</h2>
+          <p>Source, releases, issues, discussions.</p>
+          <span class="arrow">github.com/duremovich/Entity ↗</span>
+        </a>
+
+        <a
+          href="https://github.com/duremovich/Entity/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community__card"
+        >
+          <h2>Issues</h2>
+          <p>Bug reports, feature requests, "is this a bug or am I holding it wrong?"</p>
+          <span class="arrow">Open an issue ↗</span>
+        </a>
+
+        <a
+          href="https://github.com/duremovich/Entity/discussions"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community__card"
+        >
+          <h2>Discussions</h2>
+          <p>Show-and-tell, integration help, design conversations.</p>
+          <span class="arrow">Start a discussion ↗</span>
+        </a>
+      </div>
+
+      <p class="community__note">
+        A Discord / Matrix room will land when there's enough humans to fill
+        it. Until then, GitHub is the channel.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .community {
+    padding: 96px 32px 64px;
+  }
+  .community__inner {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .community h1 {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 12px 0 24px;
+  }
+  .community__lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    max-width: 56ch;
+    margin: 0 0 48px;
+  }
+  .community__links {
+    display: grid;
+    gap: 16px;
+  }
+  .community__card {
+    padding: 28px 32px;
+    border-radius: 12px;
+    border: 1px solid var(--color-line);
+    background: rgba(255, 255, 255, 0.02);
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: border-color 0.15s ease, background 0.15s ease;
+    display: block;
+  }
+  .community__card:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .community__card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .community__card p {
+    color: var(--color-ink-dim);
+    font-size: 14px;
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .arrow {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .community__note {
+    margin-top: 48px;
+    color: var(--color-ink-dim);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+</style>

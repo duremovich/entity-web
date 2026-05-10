@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://entitymedia.art/sitemap-index.xml

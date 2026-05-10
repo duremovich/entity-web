@@ -1,0 +1,80 @@
+---
+// Marketing-page header. Docs pages use Starlight's built-in header.
+const links = [
+  { href: '/docs/', label: 'Docs' },
+  { href: '/download/', label: 'Download' },
+  { href: '/brand/', label: 'Brand' },
+  { href: 'https://github.com/duremovich/Entity', label: 'GitHub', external: true },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__brand" aria-label="entity — home">
+      <img src="/brand/svg/lockup-horizontal-transparent.svg" alt="entity media server" />
+    </a>
+    <nav class="site-header__nav" aria-label="primary">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+    background: rgba(31, 10, 53, 0.72);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .site-header__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .site-header__brand img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+  .site-header__nav {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .site-header__nav a {
+    color: var(--color-ink-dim);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .site-header__nav a:hover,
+  .site-header__nav a:focus-visible {
+    color: var(--color-ink);
+  }
+  @media (max-width: 640px) {
+    .site-header__inner {
+      padding: 12px 20px;
+      gap: 16px;
+    }
+    .site-header__nav {
+      gap: 18px;
+      font-size: 13px;
+    }
+  }
+</style>

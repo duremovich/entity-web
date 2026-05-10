@@ -1,0 +1,123 @@
+/* ------------------------------------------------------------------
+   entity — global styles
+   Brand tokens + Starlight color overrides.
+   See brand reference: images/brand.html in the engine repo.
+------------------------------------------------------------------ */
+
+@import '@fontsource-variable/space-grotesk';
+
+:root {
+  /* Brand palette */
+  --color-canvas: #1f0a35;
+  --color-plate: #3a1a5a;
+  --color-stroke: #3ca65a;
+  --color-accent: #ff7a2e;
+
+  --color-body-from: #41b261;
+  --color-body-to: #5dff8a;
+  --color-iris-from: #ff3d0a;
+  --color-iris-to: #ffd86b;
+  --color-whites-from: #a8ffc4;
+  --color-whites-to: #dfffe9;
+
+  /* Ink (foreground over canvas) */
+  --color-ink: rgba(255, 255, 255, 0.92);
+  --color-ink-dim: rgba(255, 255, 255, 0.55);
+  --color-line: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --font-display: 'Space Grotesk Variable', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', monospace;
+}
+
+/* ------------------------------------------------------------------
+   Starlight theme overrides — single (dark) palette only.
+   Brand canvas is #1f0a35; a light mode would be off-brand, so we
+   force dark via the EmptyThemeSelect component override and skin
+   the light vars to the dark ones for any browser that bypasses it.
+------------------------------------------------------------------ */
+:root,
+:root[data-theme='dark'],
+:root[data-theme='light'] {
+  --sl-color-accent-low: #2a1545;
+  --sl-color-accent: #ff7a2e;
+  --sl-color-accent-high: #ffd86b;
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #e8e6f0;
+  --sl-color-gray-2: #b8b4c8;
+  --sl-color-gray-3: #908ba0;
+  --sl-color-gray-4: #5a5468;
+  --sl-color-gray-5: #2a253a;
+  --sl-color-gray-6: #221538;
+  --sl-color-black: #1f0a35;
+
+  --sl-color-bg: #1f0a35;
+  --sl-color-bg-nav: rgba(31, 10, 53, 0.85);
+  --sl-color-bg-sidebar: #1f0a35;
+  --sl-color-bg-inline-code: rgba(255, 255, 255, 0.06);
+  --sl-color-hairline: rgba(255, 255, 255, 0.08);
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.12);
+  --sl-color-hairline-shade: rgba(255, 255, 255, 0.06);
+
+  --sl-color-text: rgba(255, 255, 255, 0.92);
+  --sl-color-text-accent: #ff7a2e;
+  --sl-color-text-invert: #1f0a35;
+
+  --sl-font: 'Space Grotesk Variable', system-ui, sans-serif;
+  --sl-font-mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', monospace;
+
+  color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------ */
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Marketing-page utility: body-gradient text */
+.text-body-grad {
+  background: linear-gradient(135deg, var(--color-body-from), var(--color-body-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-iris-grad {
+  background: linear-gradient(135deg, var(--color-iris-from), var(--color-iris-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.bg-body-grad {
+  background: linear-gradient(135deg, var(--color-body-from), var(--color-body-to));
+}
+
+/* Hairline borders for cards */
+.border-line {
+  border-color: var(--color-line);
+}
+
+/* Subtle plate panel background */
+.bg-plate-soft {
+  background: rgba(58, 26, 90, 0.35);
+}
+
+/* "Accent eyebrow" — small uppercase label */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
