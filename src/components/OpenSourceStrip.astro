@@ -12,6 +12,11 @@
         plugin without contaminating it. Read the source, file issues, send a
         patch.
       </p>
+      <p class="oss__pro">
+        A <strong>Pro</strong> edition with hot-path plugins for NDI / SDI
+        output, Notch playback, and multi-node sync is in design — shipping
+        when it's ready. <a href="/download/">See the Download page</a>.
+      </p>
       <div class="oss__cta">
         <a
           href="https://github.com/duremovich/Entity"
@@ -70,7 +75,25 @@
     line-height: 1.6;
     color: var(--color-ink-dim);
     max-width: 52ch;
-    margin: 0 0 24px;
+    margin: 0 0 20px;
+  }
+  .oss__pro {
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    margin: 0 0 24px !important;
+    padding-left: 16px;
+    border-left: 2px solid rgba(255, 122, 46, 0.3);
+  }
+  .oss__pro strong {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .oss__pro a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .oss__pro a:hover {
+    text-decoration: underline;
   }
   .oss__cta {
     display: flex;

@@ -62,6 +62,12 @@ cp -r ../Entity/images/png public/brand/
 MIT for site source code. Brand assets (under `public/brand/`) are
 licensed as in the engine repo.
 
+## Internal planning
+
+`docs-internal/` holds design notes that aren't user-facing (not served
+by Starlight). See [`PLAN-auth-and-licensing.md`](./docs-internal/PLAN-auth-and-licensing.md)
+for how user accounts + Pro licensing will slot in.
+
 ## Roadmap
 
 - [ ] Polish landing screenshot / hero visual
@@ -70,3 +76,5 @@ licensed as in the engine repo.
 - [ ] Connect to host (Cloudflare Pages) and point DNS at entitymedia.art
 - [ ] Search index sanity check after first major doc pass
 - [ ] Blog / changelog (when releases exist)
+- [ ] Flip `output: 'static'` → `'hybrid'` when first Pro plugin is days from shipping
+- [ ] Wire auth (Clerk lean) + commerce (Paddle lean) + license keys (Keygen lean)

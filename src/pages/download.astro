@@ -1,102 +1,483 @@
 ---
 import Layout from '../components/Layout.astro';
+
+const platforms = [
+  {
+    name: 'Windows',
+    status: 'available',
+    statusLabel: 'Available (from source)',
+    detail:
+      'Windows 10 / 11 (64-bit). DirectX 12 GPU required. Signed installer arrives with the first tagged release.',
+  },
+  {
+    name: 'macOS',
+    status: 'roadmap',
+    statusLabel: 'On the roadmap',
+    detail:
+      'Apple Silicon + Intel. Metal renderer port is queued behind the Phase D feature work. No ETA yet.',
+  },
+  {
+    name: 'Linux',
+    status: 'roadmap',
+    statusLabel: 'On the roadmap',
+    detail:
+      'Vulkan renderer port. Lands after the macOS port — same backend split as the Pro outputs work.',
+  },
+];
+
+type CellValue = boolean | 'planned';
+interface EditionRow {
+  label: string;
+  community: CellValue;
+  pro: CellValue;
+}
+const editionRows: EditionRow[] = [
+  { label: 'Multi-layer playback', community: true, pro: true },
+  { label: 'Projection mapping + soft edges', community: true, pro: true },
+  { label: 'OSC control + Companion integration', community: true, pro: true },
+  { label: 'Plugin SDK (Apache 2.0)', community: true, pro: true },
+  { label: 'NDI input / output', community: false, pro: 'planned' },
+  { label: 'SDI output (Decklink)', community: false, pro: 'planned' },
+  { label: 'Notch block playback', community: false, pro: 'planned' },
+  { label: 'Multi-node sync', community: false, pro: 'planned' },
+  { label: 'Priority support', community: false, pro: 'planned' },
+];
+
+function cell(value: CellValue): string {
+  if (value === true) return '✓';
+  if (value === 'planned') return '○';
+  return '—';
+}
+function cellClass(value: CellValue): string {
+  if (value === true) return 'yes';
+  if (value === 'planned') return 'planned';
+  return 'no';
+}
 ---
 
 <Layout
   title="Download — entity"
-  description="Download entity media server."
+  description="Get entity. Community edition free under GPLv3, Pro plugins coming."
 >
-  <section class="download">
-    <div class="download__inner">
+  <section class="dl-hero">
+    <div class="dl-hero__inner">
       <p class="eyebrow">Download</p>
-      <h1>Not packaged yet.</h1>
-      <p class="download__lede">
-        entity hasn't shipped a signed binary release. The download page goes
-        live with the first tagged release.
+      <h1>Get entity.</h1>
+      <p class="dl-hero__lede">
+        entity is open-source under GPLv3. The plugin SDK is Apache 2.0 — Pro
+        plugins are coming when they're ready.
       </p>
+      <div class="dl-hero__notice">
+        <strong>Pre-release.</strong> No signed binary installers have shipped
+        yet. Build from source today; a signed installer arrives with the
+        first tagged release.
+      </div>
+    </div>
+  </section>
 
-      <div class="download__card">
-        <h2>Build from source</h2>
-        <p>
-          In the meantime, you can build entity from the public source tree.
-          Windows is supported today; macOS and Linux are on the roadmap.
-        </p>
-        <pre><code>{`git clone https://github.com/duremovich/Entity.git
+  <!-- Editions -->
+  <section class="dl-section">
+    <div class="dl-section__inner">
+      <h2 class="dl-section__heading">Editions</h2>
+
+      <div class="editions">
+        <article class="edition">
+          <div class="edition__pill edition__pill--free">Free</div>
+          <h3>Community</h3>
+          <p class="edition__price">Free · GPLv3</p>
+          <p class="edition__body">
+            The full media server. Multi-layer playback, projection mapping,
+            OSC control, plugin SDK. Source-available; build your own
+            plugins under any license against the Apache 2.0 SDK header.
+          </p>
+          <a href="#build-from-source" class="edition__cta edition__cta--primary">
+            Build from source ↓
+          </a>
+          <p class="edition__sub">
+            Signed installer arrives with the first tagged release.
+          </p>
+        </article>
+
+        <article class="edition edition--pro">
+          <div class="edition__pill edition__pill--pro">Pro</div>
+          <h3>Pro</h3>
+          <p class="edition__price">Commercial · pricing TBD</p>
+          <p class="edition__body">
+            Hot-path plugins for production rigs — NDI / SDI output, Notch
+            block playback, multi-node sync. Per-machine license, priority
+            support, commercial-use friendly.
+          </p>
+          <a
+            href="https://github.com/duremovich/Entity/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="edition__cta edition__cta--ghost"
+          >
+            Pre-register interest ↗
+          </a>
+          <p class="edition__sub">
+            Not for sale yet. We'll open pre-registration as the first Pro
+            plugins land.
+          </p>
+        </article>
+      </div>
+
+      <h3 class="dl-subheading">What's in each</h3>
+      <table class="features">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="features__col">Community</th>
+            <th class="features__col features__col--pro">Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            editionRows.map((row) => (
+              <tr>
+                <td>{row.label}</td>
+                <td class={`features__cell features__cell--${cellClass(row.community)}`}>
+                  {cell(row.community)}
+                </td>
+                <td class={`features__cell features__cell--${cellClass(row.pro)}`}>
+                  {cell(row.pro)}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="features__legend">
+        <span class="legend"><span class="legend__sym legend__sym--yes">✓</span> Included</span>
+        <span class="legend"><span class="legend__sym legend__sym--planned">○</span> Planned for first Pro release</span>
+        <span class="legend"><span class="legend__sym legend__sym--no">—</span> Not in this edition</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Platforms -->
+  <section class="dl-section dl-section--alt">
+    <div class="dl-section__inner">
+      <h2 class="dl-section__heading">Platforms</h2>
+      <div class="platforms">
+        {
+          platforms.map((p) => (
+            <article class={`platform platform--${p.status}`}>
+              <h3>{p.name}</h3>
+              <span class={`platform__status platform__status--${p.status}`}>
+                {p.statusLabel}
+              </span>
+              <p>{p.detail}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Build from source -->
+  <section class="dl-section" id="build-from-source">
+    <div class="dl-section__inner">
+      <h2 class="dl-section__heading">Build from source</h2>
+      <p class="dl-section__lede">
+        The current install path. The full <a href="/docs/getting-started/install/">install guide</a> has prerequisites and troubleshooting.
+      </p>
+      <pre class="codeblock"><code>{`# Prereqs: Visual Studio 2022 (C++), CMake 3.21+, vcpkg
+
+git clone https://github.com/duremovich/Entity.git
 cd Entity
+
 cmake -B build -S . \\
   -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
-cmake --build build --config Release`}</code></pre>
-        <p>
-          Full instructions: <a href="/docs/getting-started/install/">install
-          guide</a>.
-        </p>
-      </div>
 
-      <div class="download__notify">
-        <h2>Want a heads-up when v1 lands?</h2>
-        <p>
-          Watch the repo on GitHub — releases land there first.
-        </p>
-        <a
-          href="https://github.com/duremovich/Entity"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn"
-        >
-          github.com/duremovich/Entity ↗
-        </a>
+cmake --build build --config Release
+
+# Editor lands at:
+build\\bin\\Release\\EntityMediaEditor.exe`}</code></pre>
+    </div>
+  </section>
+
+  <!-- Stay in the loop -->
+  <section class="dl-section dl-section--alt">
+    <div class="dl-section__inner dl-notify">
+      <div>
+        <h2 class="dl-section__heading">Stay in the loop</h2>
+        <p>Watch the repo. Releases land there first; Pro pre-registration opens via Discussions.</p>
       </div>
+      <a
+        href="https://github.com/duremovich/Entity"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn"
+      >
+        github.com/duremovich/Entity ↗
+      </a>
     </div>
   </section>
 </Layout>
 
 <style>
-  .download {
-    padding: 96px 32px 64px;
+  /* ---------- hero ---------- */
+  .dl-hero {
+    padding: 96px 32px 48px;
+    position: relative;
   }
-  .download__inner {
-    max-width: 920px;
+  .dl-hero__inner {
+    max-width: 1080px;
     margin: 0 auto;
   }
-  .download h1 {
-    font-size: clamp(40px, 5vw, 64px);
+  .dl-hero h1 {
+    font-size: clamp(48px, 6vw, 80px);
     font-weight: 600;
     letter-spacing: -0.03em;
-    margin: 12px 0 24px;
+    line-height: 1.05;
+    margin: 12px 0 20px;
   }
-  .download__lede {
+  .dl-hero__lede {
     font-size: 18px;
     line-height: 1.6;
     color: var(--color-ink-dim);
-    margin: 0 0 48px;
-    max-width: 56ch;
+    margin: 0 0 32px;
+    max-width: 60ch;
   }
-  .download__card,
-  .download__notify {
+  .dl-hero__notice {
+    padding: 16px 20px;
+    border-radius: 8px;
+    background: rgba(255, 122, 46, 0.08);
+    border: 1px solid rgba(255, 122, 46, 0.24);
+    color: var(--color-ink);
+    font-size: 14px;
+    max-width: 60ch;
+  }
+  .dl-hero__notice strong {
+    color: var(--color-accent);
+  }
+
+  /* ---------- sections ---------- */
+  .dl-section {
+    padding: 64px 32px;
+  }
+  .dl-section--alt {
+    background: linear-gradient(180deg, rgba(58,26,90,0.18), rgba(31,10,53,0));
+  }
+  .dl-section__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .dl-section__heading {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 32px;
+  }
+  .dl-section__lede {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    margin: 0 0 24px;
+    max-width: 60ch;
+  }
+  .dl-section__lede a {
+    color: var(--color-accent);
+  }
+  .dl-subheading {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    color: var(--color-ink);
+  }
+
+  /* ---------- editions ---------- */
+  .editions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .edition {
+    position: relative;
     padding: 32px;
     border-radius: 12px;
     border: 1px solid var(--color-line);
     background: rgba(255, 255, 255, 0.02);
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-  .download__card h2,
-  .download__notify h2 {
-    font-size: 20px;
+  .edition--pro {
+    background: linear-gradient(135deg, rgba(255,122,46,0.05), rgba(58,26,90,0.2));
+    border-color: rgba(255, 122, 46, 0.2);
+  }
+  .edition__pill {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 10px;
     font-weight: 600;
-    margin: 0 0 16px;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
-  .download__card p,
-  .download__notify p {
-    font-size: 15px;
+  .edition__pill--free {
+    background: rgba(93, 255, 138, 0.12);
+    color: #5dff8a;
+    border: 1px solid rgba(93, 255, 138, 0.24);
+  }
+  .edition__pill--pro {
+    background: rgba(255, 122, 46, 0.14);
+    color: var(--color-accent);
+    border: 1px solid rgba(255, 122, 46, 0.28);
+  }
+  .edition h3 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .edition__price {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-ink-dim);
+    margin: 0;
+  }
+  .edition__body {
+    font-size: 14px;
     line-height: 1.6;
     color: var(--color-ink-dim);
-    margin: 0 0 16px;
+    margin: 12px 0;
+    flex-grow: 1;
   }
-  .download__card a {
-    color: var(--color-accent);
+  .edition__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: var(--font-mono);
+    border: 1px solid transparent;
+    align-self: flex-start;
   }
-  pre {
+  .edition__cta--primary {
+    background: var(--color-accent);
+    color: #1a0928;
+  }
+  .edition__cta--primary:hover {
+    background: #ff8c45;
+  }
+  .edition__cta--ghost {
+    color: var(--color-ink);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+  .edition__cta--ghost:hover {
+    border-color: rgba(255, 255, 255, 0.32);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .edition__sub {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+  }
+
+  /* ---------- features table ---------- */
+  .features {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .features th,
+  .features td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .features th {
+    color: var(--color-ink-dim);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .features__col {
+    width: 140px;
+    text-align: center !important;
+  }
+  .features__col--pro { color: var(--color-accent); }
+  .features__cell {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 16px;
+  }
+  .features__cell--yes { color: #5dff8a; }
+  .features__cell--planned { color: var(--color-accent); }
+  .features__cell--no { color: rgba(255, 255, 255, 0.25); }
+  .features__legend {
+    margin: 16px 0 0;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--color-ink-dim);
+  }
+  .legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend__sym {
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .legend__sym--yes { color: #5dff8a; }
+  .legend__sym--planned { color: var(--color-accent); }
+  .legend__sym--no { color: rgba(255, 255, 255, 0.25); }
+
+  /* ---------- platforms ---------- */
+  .platforms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .platform {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--color-line);
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .platform--roadmap {
+    opacity: 0.7;
+  }
+  .platform h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .platform__status {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .platform__status--available { color: #5dff8a; }
+  .platform__status--roadmap { color: var(--color-ink-dim); }
+  .platform p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    margin: 0;
+  }
+
+  /* ---------- codeblock ---------- */
+  .codeblock {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--color-line);
     border-radius: 8px;
@@ -105,10 +486,24 @@ cmake --build build --config Release`}</code></pre>
     font-size: 13px;
     line-height: 1.6;
     font-family: var(--font-mono);
-    margin: 16px 0;
+    margin: 0;
   }
-  code {
+  .codeblock code {
     color: var(--color-body-to);
+    background: transparent;
+  }
+
+  /* ---------- notify ---------- */
+  .dl-notify {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .dl-notify p {
+    color: var(--color-ink-dim);
+    margin: 0;
+    font-size: 15px;
   }
   .btn {
     display: inline-flex;
@@ -118,10 +513,23 @@ cmake --build build --config Release`}</code></pre>
     color: #1a0928;
     text-decoration: none;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     font-family: var(--font-mono);
+    white-space: nowrap;
   }
   .btn:hover {
     background: #ff8c45;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 880px) {
+    .editions,
+    .platforms {
+      grid-template-columns: 1fr;
+    }
+    .dl-notify {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>

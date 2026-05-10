@@ -91,6 +91,13 @@ export default defineConfig({
           label: 'Troubleshooting',
           items: [{ autogenerate: { directory: 'docs/troubleshooting' } }],
         },
+        {
+          label: 'About',
+          items: [
+            { label: 'Roadmap', link: '/docs/roadmap/' },
+            { label: 'FAQ', link: '/docs/faq/' },
+          ],
+        },
       ],
     }),
     sitemap(),
