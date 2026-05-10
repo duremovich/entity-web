@@ -1,0 +1,130 @@
+---
+const cases = [
+  {
+    role: 'Projection mapping artist',
+    headline: 'Land pixels on real surfaces.',
+    body:
+      'Anchor-point calibration with a lens model — drag the corners until the projected image matches the surface. Soft-edge blending for multi-projector arrays. Per-output input regions for fan-out across screens.',
+    docLink: '/docs/projection/',
+    docLabel: 'Projection guide',
+  },
+  {
+    role: 'Festival / theatre tech',
+    headline: 'Cue from the desk you already use.',
+    body:
+      'Inbound OSC pairs with Bitfocus Companion, ETC consoles, vendor stagebox over IP, or a Stream Deck taped to a stand. Section break-points act as cue points; jump by number or step linearly.',
+    docLink: '/docs/control/companion/',
+    docLabel: 'Companion guide',
+  },
+  {
+    role: 'Live installation studio',
+    headline: 'Run unattended for months.',
+    body:
+      'A project is a folder. Copy it to the install machine, point the file association, set the editor to fullscreen on primary, autostart on boot. Filename versioning means content updates are a drop-in.',
+    docLink: '/docs/concepts/projects-on-disk/',
+    docLabel: 'Project layout',
+  },
+];
+---
+
+<section class="use">
+  <div class="use__inner">
+    <p class="eyebrow">Who it's for</p>
+    <h2>Built for the people running the show.</h2>
+    <p class="use__lede">
+      entity is sharp where live show is sharp — show-control protocols,
+      frame-accurate trigger, projection mapping math, multi-output
+      routing. It's not a creative-content tool; it's the thing that
+      plays your creative content reliably when someone in headset says
+      go.
+    </p>
+
+    <div class="use__grid">
+      {
+        cases.map((c) => (
+          <article class="use__card">
+            <div class="use__role">{c.role}</div>
+            <h3>{c.headline}</h3>
+            <p>{c.body}</p>
+            <a href={c.docLink}>{c.docLabel} →</a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .use {
+    padding: 96px 32px;
+  }
+  .use__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .use h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 12px 0 16px;
+    max-width: 22ch;
+  }
+  .use__lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    max-width: 64ch;
+    margin: 0 0 56px;
+  }
+  .use__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .use__card {
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid var(--color-line);
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .use__role {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent);
+  }
+  .use__card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.25;
+  }
+  .use__card p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-dim);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .use__card a {
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .use__card a:hover {
+    color: var(--color-iris-to);
+  }
+  @media (max-width: 960px) {
+    .use__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
