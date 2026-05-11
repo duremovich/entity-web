@@ -6,8 +6,7 @@ description: Frequently asked questions about entity, its license, and what it's
 ## What is entity?
 
 A C++ media server for live shows and installations. Multi-layer video
-playback, projection mapping, OSC control. Open-source under GPLv3 with
-an Apache 2.0 plugin SDK so commercial plugins are fine.
+playback, projection mapping, OSC control. Open-source under GPLv3.
 
 ## Who is it for?
 
@@ -30,43 +29,32 @@ and don't bet on features marked "in progress" on the
 
 ## License
 
-| Component | License |
-|---|---|
-| Engine core | GPLv3 |
-| Plugin SDK header | Apache 2.0 |
-| First-party plugins | Apache 2.0 |
-| Brand assets | See `LICENSING.md` in the engine repo |
-
-The GPLv3 on the engine means modifications to the engine itself are
-open-source. The Apache 2.0 SDK means **your plugin can be any license
-you want**, including closed-source commercial. This is the open-core
-split most projects of this kind use.
+The engine is **GPLv3**. Modifications to the engine itself stay
+open-source. Running shows with entity (without redistributing the
+engine) is unrestricted commercial use.
 
 ## Can I use it commercially?
 
 Yes. GPLv3 doesn't prevent commercial use — it requires you to
-distribute source if you redistribute the engine itself. If you're
-running shows with entity, that's not a redistribution event.
+distribute source if you redistribute the engine itself. Running shows
+with entity is not a redistribution event.
 
-If you're shipping a product that bundles entity, talk to us via
-[Discussions](https://github.com/duremovich/Entity/discussions) — there
-are clean paths via the Apache 2.0 SDK that may suit better than the
-GPL'd core.
+If you're shipping a product that bundles entity, open a
+[Discussion](https://github.com/duremovich/Entity/discussions) — there
+may be paths that suit your use case better than the GPL.
 
 ## Is there a paid version?
 
-A **Pro** edition is planned with hot-path plugins (NDI / SDI output,
-Notch block playback, multi-node sync) and priority support. Not for
-sale yet. See the [Download page](/download/) and
-[Roadmap](/docs/roadmap/).
+A **Pro** edition is planned with NDI / SDI output, Notch block
+playback, multi-node sync, and priority support. Not for sale yet. See
+the [Download page](/download/) and [Roadmap](/docs/roadmap/).
 
 ## How does Pro licensing work?
 
 To be designed. The likely shape: per-machine activation with a license
 key bound to a machine fingerprint, similar to how commercial media
-servers and post-production tools handle it. Offline activation
-supported for air-gapped show machines. Details when the first Pro
-plugin lands.
+servers and post-production tools handle it. Offline activation for
+air-gapped show machines. Details when the first Pro feature lands.
 
 ## Does entity play audio?
 
@@ -105,12 +93,16 @@ can, grab logs from the project's `logs/` folder, and file at
 
 Pull requests welcome. The engine is C++20 with EnTT (ECS), D3D12, and
 FFmpeg. Architecture notes live in `docs/adr/` in the engine repo —
-start at `docs/adr/README.md`. Comparable to most C++ project flows:
-fork, branch, build locally, PR.
+start at `docs/adr/README.md`. Standard C++ project flow: fork, branch,
+build locally, PR.
 
-For docs (this site), the source is at
-[github.com/duremovich/entity-web](https://github.com/duremovich/entity-web)
-(private during early development; will open up).
+## Can I write a plugin / extend entity?
+
+Not today. A user plugin SDK is on the [roadmap](/docs/roadmap/) — the
+internal plugin architecture exists, but the SDK isn't a supported
+public surface yet. If you have a specific extension in mind, start a
+[Discussion](https://github.com/duremovich/Entity/discussions) so it
+shapes what we ship.
 
 ## Will entity ever be cloud-based / SaaS?
 
@@ -124,8 +116,8 @@ Different trade-offs. Commercial servers have years of polish,
 vendor-specific hardware integrations, and dedicated support. entity is
 free, open-source, and built around modern C++ / GPU compositing with
 a deliberate "show output is sacred" architecture. If your need is
-one-off festival work, indie installations, or you want to extend the
-server with custom plugins, entity should suit.
+one-off festival work, indie installations, or running your own show
+on hardware you control, entity should suit.
 
 We don't name competitors on this site by policy — describing the
 category mechanism is enough; you know who's already in your toolchain.

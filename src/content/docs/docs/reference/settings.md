@@ -18,7 +18,7 @@ Project settings override global settings.
 
 | Setting | Default | Effect |
 |---|---|---|
-| `osc.enabled` | `true` | Whether the OSC receiver plugin is loaded |
+| `osc.enabled` | `true` | Whether the OSC receiver is active |
 | `osc.port` | `53000` | UDP port to listen on |
 
 Changes require a restart.

@@ -106,14 +106,6 @@ non-zero.
 | `Log` | `message` (string) | Write a message to the log |
 | `Screenshot` | `path` (string) | Capture the editor viewport to a PNG |
 
-## Plugin control
-
-| Type | Args | Effect |
-|---|---|---|
-| `ReloadPlugins` | — | Force a plugin discovery + reload pass |
-| `EnablePlugin` | `name` (string) | Enable a plugin by name |
-| `DisablePlugin` | `name` (string) | Disable a plugin by name |
-
 ## Application lifecycle
 
 | Type | Args | Effect |

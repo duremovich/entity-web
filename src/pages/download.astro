@@ -35,7 +35,7 @@ const editionRows: EditionRow[] = [
   { label: 'Multi-layer playback', community: true, pro: true },
   { label: 'Projection mapping + soft edges', community: true, pro: true },
   { label: 'OSC control + Companion integration', community: true, pro: true },
-  { label: 'Plugin SDK (Apache 2.0)', community: true, pro: true },
+  { label: 'Full engine source (GPLv3)', community: true, pro: true },
   { label: 'NDI input / output', community: false, pro: 'planned' },
   { label: 'SDI output (Decklink)', community: false, pro: 'planned' },
   { label: 'Notch block playback', community: false, pro: 'planned' },
@@ -64,8 +64,8 @@ function cellClass(value: CellValue): string {
       <p class="eyebrow">Download</p>
       <h1>Get entity.</h1>
       <p class="dl-hero__lede">
-        entity is open-source under GPLv3. The plugin SDK is Apache 2.0 — Pro
-        plugins are coming when they're ready.
+        entity is open-source under GPLv3. A Pro edition with production
+        hardware integration is coming when it's ready.
       </p>
       <div class="dl-hero__notice">
         <strong>Pre-release.</strong> No signed binary installers have shipped
@@ -87,8 +87,8 @@ function cellClass(value: CellValue): string {
           <p class="edition__price">Free · GPLv3</p>
           <p class="edition__body">
             The full media server. Multi-layer playback, projection mapping,
-            OSC control, plugin SDK. Source-available; build your own
-            plugins under any license against the Apache 2.0 SDK header.
+            OSC control. Full engine source under GPLv3 — read it, modify
+            it, run it.
           </p>
           <a href="#build-from-source" class="edition__cta edition__cta--primary">
             Build from source ↓
@@ -103,7 +103,7 @@ function cellClass(value: CellValue): string {
           <h3>Pro</h3>
           <p class="edition__price">Commercial · pricing TBD</p>
           <p class="edition__body">
-            Hot-path plugins for production rigs — NDI / SDI output, Notch
+            Production-grade hardware integration — NDI / SDI output, Notch
             block playback, multi-node sync. Per-machine license, priority
             support, commercial-use friendly.
           </p>

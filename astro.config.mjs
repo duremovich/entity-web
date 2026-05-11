@@ -80,10 +80,6 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'docs/control' } }],
         },
         {
-          label: 'Plugins',
-          items: [{ autogenerate: { directory: 'docs/plugins' } }],
-        },
-        {
           label: 'Reference',
           items: [{ autogenerate: { directory: 'docs/reference' } }],
         },

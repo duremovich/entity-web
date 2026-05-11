@@ -121,3 +121,100 @@ body {
   text-transform: uppercase;
   color: var(--color-accent);
 }
+
+/* ------------------------------------------------------------------
+   Starlight unification — make the docs surface feel like the
+   marketing surface. Header glass blur, orange site title, hero
+   panel borders matching marketing card style, code-block panels.
+------------------------------------------------------------------ */
+
+/* Site title (next to the mark in the docs header) — orange */
+.site-title,
+a.site-title,
+header.header .site-title {
+  color: var(--color-accent) !important;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Docs header: matching glass-blur backdrop like marketing header */
+header.header {
+  backdrop-filter: blur(12px);
+  background: rgba(31, 10, 53, 0.72) !important;
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* Docs nav-toggle / sidebar mobile look — keep canvas */
+.sidebar-pane {
+  border-right: 1px solid var(--color-line);
+}
+
+/* Docs hero (splash template) — borrow marketing panel styling */
+.hero {
+  border-radius: 16px;
+}
+.hero h1 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.hero .tagline {
+  color: var(--color-ink-dim);
+}
+
+/* Action buttons in hero — match marketing CTA shape */
+.hero .action.primary,
+.action.primary {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Card grid (docs landing) — make borders + bg match marketing cards */
+.card {
+  border-radius: 12px !important;
+  border: 1px solid var(--color-line) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+.card .icon {
+  color: var(--color-accent);
+}
+
+/* Inline code chips */
+:not(pre) > code {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.88em;
+}
+
+/* Asides — themed to brand */
+.starlight-aside {
+  border-left-width: 2px;
+}
+.starlight-aside--tip {
+  border-color: var(--color-body-to);
+}
+.starlight-aside--caution {
+  border-color: var(--color-accent);
+}
+.starlight-aside--note {
+  border-color: var(--color-ink-dim);
+}
+
+/* Search input — orange focus accent */
+site-search input:focus,
+.search-button:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+/* Top-level docs links in sidebar */
+.sidebar a[aria-current='page'],
+.sidebar a[aria-current='true'] {
+  color: var(--color-accent);
+  font-weight: 600;
+}

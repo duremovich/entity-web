@@ -96,11 +96,6 @@ multiple 60fps output frames. Renderer support is on the roadmap.
 for media-server playback. Cheap to decode, supports many concurrent
 layers. First-class in entity.
 
-**Hot-path plugin** — A plugin that sits inside the per-frame render
-or decode loop. Implements a C++ ABI (`OutputDriver`, `CodecProvider`).
-Static-linked, toolchain-locked. See
-[Plugins](/docs/concepts/plugins/).
-
 ## I
 
 **Input region** — A per-physical-output rectangle that crops the
@@ -142,13 +137,6 @@ external service.
 **Physical output** — An actual display connected to the machine
 (HDMI / DP / DVI). Identified by EDID. Receives pixels from an assigned
 screen.
-
-**Plugin** — A separate binary that extends entity. Two transport
-tiers: **control-plane** and **hot-path**. See
-[Plugins](/docs/concepts/plugins/).
-
-**Plugin SDK** — Apache 2.0 headers in `plugin-api/include/`. Use these
-to build a plugin without GPL contamination on your plugin code.
 
 **ProRes** — Apple's intra-only post-production codec family. Each
 frame is a keyframe → cheap random access. Variants: 422 Proxy / LT /
