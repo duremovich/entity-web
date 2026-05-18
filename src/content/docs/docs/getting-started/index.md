@@ -3,6 +3,7 @@ title: Getting started
 description: From install to first clip on the timeline.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 Four short steps from zero to a playing show:

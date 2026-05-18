@@ -3,6 +3,7 @@ title: Projection
 description: Calibration, soft edges, multi-projector setups.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 When you have to land pixels on a real surface in the real world:

@@ -1,0 +1,23 @@
+---
+/*
+  Sidebar override. The only reason we override the top-level Sidebar
+  component is that Starlight doesn't expose SidebarSublist as an
+  overridable component, but Sidebar's only job is to compose
+  SidebarPersister + SidebarSublist + the mobile-menu footer. We
+  re-do that composition here with our custom SidebarSublist that
+  renders Unity-docs-style clickable group labels.
+*/
+import MobileMenuFooter from '@astrojs/starlight/components/MobileMenuFooter.astro';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from './SidebarSublist.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+---
+
+<SidebarPersister>
+  <SidebarSublist sublist={sidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>

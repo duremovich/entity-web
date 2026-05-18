@@ -212,9 +212,17 @@ site-search input:focus,
   outline-color: var(--color-accent);
 }
 
-/* Top-level docs links in sidebar */
+/* Sidebar selected item — orange text on a faint orange tint.
+   Starlight's default is dark text on a saturated orange background;
+   we override both the text and the background so the brand orange
+   reads as the accent and not as a hidden-text trap. */
 .sidebar a[aria-current='page'],
-.sidebar a[aria-current='true'] {
+.sidebar a[aria-current='page']:hover,
+.sidebar a[aria-current='page']:focus,
+.sidebar a[aria-current='true'],
+.sidebar a[aria-current='true']:hover,
+.sidebar a[aria-current='true']:focus {
   color: var(--color-accent);
+  background-color: rgba(255, 122, 46, 0.12);
   font-weight: 600;
 }

@@ -57,6 +57,11 @@ export default defineConfig({
       components: {
         // Force dark mode — brand canvas is #1f0a35; light mode is off-brand.
         ThemeSelect: './src/components/EmptyThemeSelect.astro',
+        // Unity-docs-style sidebar — group labels are clickable links
+        // to the section landing page; caret still toggles open/closed.
+        // Sidebar wraps our custom SidebarSublist (Starlight only
+        // exposes Sidebar, not the Sublist, as overridable).
+        Sidebar: './src/components/Sidebar.astro',
       },
       sidebar: [
         {

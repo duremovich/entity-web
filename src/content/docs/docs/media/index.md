@@ -3,6 +3,7 @@ title: Media
 description: Supported codecs, transcoding, content folder layout, mixed frame rates.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 Everything about getting media in and keeping it organised:

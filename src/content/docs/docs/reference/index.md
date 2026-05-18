@@ -3,6 +3,7 @@ title: Reference
 description: File formats, settings, CLI, glossary, complete OSC and script references.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 - **[Glossary](/docs/reference/glossary/)** — every entity-specific term in

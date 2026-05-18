@@ -3,6 +3,7 @@ title: Troubleshooting
 description: Common problems and where to look.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 When something goes wrong in entity, work from symptoms outward:

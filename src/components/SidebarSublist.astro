@@ -1,0 +1,252 @@
+---
+/*
+  Custom SidebarSublist that makes the group label a clickable link to
+  the section's index page, Unity-docs style.
+
+  Behaviour:
+   - Group label is wrapped in <a> when its child links share a common
+     URL prefix beyond /docs/ (i.e. the group corresponds to a real
+     section landing page). For mixed groups (e.g. About — Roadmap +
+     FAQ) the label stays plain text.
+   - The caret still toggles open/closed.
+   - Clicking the link navigates without toggling the details, via a
+     small inline script that stops click propagation.
+   - Section index pages are hidden from the sidebar (frontmatter
+     `sidebar.hidden: true`) so the group label IS the link to that
+     page — no redundant "Overview" child.
+
+  We can't import flattenSidebar from Starlight (not in package
+  exports), so we walk the entries tree locally. We also can't import
+  Icon, so the chevron SVG is inlined (same path Starlight uses).
+*/
+import SidebarRestorePoint from '@astrojs/starlight/components/SidebarRestorePoint.astro';
+
+interface SidebarLink {
+  type: 'link';
+  href: string;
+  label: string;
+  isCurrent: boolean;
+  attrs: Record<string, any>;
+  badge?: { variant?: string; class?: string; text: string };
+}
+interface SidebarGroup {
+  type: 'group';
+  label: string;
+  entries: SidebarEntry[];
+  collapsed: boolean;
+  badge?: { variant?: string; class?: string; text: string };
+}
+type SidebarEntry = SidebarLink | SidebarGroup;
+
+interface Props {
+  sublist: SidebarEntry[];
+  nested?: boolean;
+}
+
+const { sublist, nested } = Astro.props as Props;
+
+function flatten(entries: SidebarEntry[]): SidebarLink[] {
+  const out: SidebarLink[] = [];
+  for (const e of entries) {
+    if (e.type === 'link') out.push(e);
+    else out.push(...flatten(e.entries));
+  }
+  return out;
+}
+
+/**
+ * If every link inside the group lives under a common `/docs/<section>/...`
+ * prefix that's deeper than `/docs/`, return that section URL — that's
+ * the group's landing page. Otherwise return null (group label stays
+ * plain text — e.g. the About group, whose children live at
+ * `/docs/roadmap/` and `/docs/faq/`, no shared section).
+ */
+function inferGroupHref(entries: SidebarEntry[]): string | null {
+  const links = flatten(entries).filter((l) => l.href);
+  if (links.length === 0) return null;
+
+  const segLists = links.map((l) =>
+    l.href.replace(/\/+$/, '').split('/').filter(Boolean)
+  );
+
+  const minLen = Math.min(...segLists.map((s) => s.length));
+  const prefix: string[] = [];
+  for (let i = 0; i < minLen; i++) {
+    const seg = segLists[0][i];
+    if (segLists.every((s) => s[i] === seg)) prefix.push(seg);
+    else break;
+  }
+
+  // Require at least /docs/<section>/ (2+ shared segments).
+  if (prefix.length < 2) return null;
+  return '/' + prefix.join('/') + '/';
+}
+---
+
+<ul class:list={{ 'top-level': !nested }}>
+  {
+    sublist.map((entry) => (
+      <li>
+        {entry.type === 'link' ? (
+          <a
+            href={entry.href}
+            aria-current={entry.isCurrent ? 'page' : undefined}
+            class:list={[{ large: !nested }, entry.attrs.class]}
+            {...entry.attrs}
+          >
+            <span>{entry.label}</span>
+          </a>
+        ) : (
+          <details open={flatten(entry.entries).some((i) => i.isCurrent) || !entry.collapsed}>
+            <summary>
+              <span class="group-label">
+                {inferGroupHref(entry.entries) ? (
+                  <a
+                    href={inferGroupHref(entry.entries)!}
+                    class="large group-link"
+                    data-sl-group-link
+                  >
+                    {entry.label}
+                  </a>
+                ) : (
+                  <span class="large">{entry.label}</span>
+                )}
+              </span>
+              <svg
+                aria-hidden="true"
+                class="caret"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style="--sl-icon-size: 1.25rem;"
+              >
+                <path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" />
+              </svg>
+            </summary>
+            <SidebarRestorePoint />
+            <Astro.self sublist={entry.entries} nested />
+          </details>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<script is:inline>
+  // Prevent clicks on the group label link from toggling the
+  // surrounding <details> element. The link's navigation still
+  // happens; only the toggle is suppressed.
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target instanceof Element && target.closest('[data-sl-group-link]')) {
+      e.stopPropagation();
+    }
+  }, true);
+</script>
+
+<style>
+  /* Mirror the original Starlight SidebarSublist styles so we don't
+     regress the look. Brand-specific tweaks live in global.css. */
+  ul {
+    --sl-sidebar-item-padding-inline: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    overflow-wrap: anywhere;
+  }
+
+  ul ul li {
+    margin-inline-start: var(--sl-sidebar-item-padding-inline);
+    border-inline-start: 1px solid var(--sl-color-hairline-light);
+    padding-inline-start: var(--sl-sidebar-item-padding-inline);
+  }
+
+  .large {
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .top-level > li + li {
+    margin-top: 0.75rem;
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2em var(--sl-sidebar-item-padding-inline);
+    line-height: 1.4;
+    cursor: pointer;
+    user-select: none;
+  }
+  summary::marker,
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .caret {
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+  }
+  :global([dir='rtl']) .caret {
+    transform: rotateZ(180deg);
+  }
+  [open] > summary .caret {
+    transform: rotateZ(90deg);
+  }
+
+  a {
+    display: block;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: var(--sl-color-gray-2);
+    padding: 0.3em var(--sl-sidebar-item-padding-inline);
+    line-height: 1.4;
+  }
+
+  a:hover,
+  a:focus {
+    color: var(--sl-color-white);
+  }
+
+  [aria-current='page'],
+  [aria-current='page']:hover,
+  [aria-current='page']:focus {
+    font-weight: 600;
+    color: var(--sl-color-text-invert);
+    background-color: var(--sl-color-text-accent);
+  }
+
+  /* Group-label link sits inside <summary> — strip the link's own
+     padding/display so the summary spacing is unchanged. */
+  .group-label .group-link {
+    display: inline;
+    padding: 0;
+    color: inherit;
+  }
+  .group-label .group-link:hover,
+  .group-label .group-link:focus {
+    color: var(--color-accent, var(--sl-color-text-accent));
+  }
+
+  a > *:not(:last-child),
+  .group-label > *:not(:last-child) {
+    margin-inline-end: 0.25em;
+  }
+
+  @media (min-width: 50rem) {
+    .top-level > li + li {
+      margin-top: 0.5rem;
+    }
+    .large {
+      font-size: var(--sl-text-base);
+    }
+    a {
+      font-size: var(--sl-text-sm);
+    }
+  }
+</style>

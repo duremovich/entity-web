@@ -3,6 +3,7 @@ title: Control
 description: Drive entity from external show-control software.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 Two layers of control:

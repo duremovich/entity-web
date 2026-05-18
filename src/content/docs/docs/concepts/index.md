@@ -3,6 +3,7 @@ title: Concepts
 description: The mental model behind entity — projects, timelines, sections, screens, outputs.
 sidebar:
   order: 0
+  hidden: true
 ---
 
 Four concepts that, taken together, are entity:
