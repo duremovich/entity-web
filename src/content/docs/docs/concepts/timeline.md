@@ -1,13 +1,19 @@
 ---
-title: Timeline & clips
-description: How the timeline, tracks, and clips fit together.
+title: Timeline & layers
+description: How the timeline, tracks, and layers fit together.
 sidebar:
   order: 2
 ---
 
 The timeline is the show's score. It runs at a fixed **timeline frame
-rate** and is divided into **tracks**, with **clips** placed along each
+rate** and is divided into **tracks**, with **layers** placed along each
 track at specific frame positions.
+
+A layer has a Kind — **Clip** (video / image / PNG sequence), **Object
+Animation** (keyframe-drive a screen or prop transform), or
+**Generative** (procedural content like Muncher). See
+[Concepts → Layers](/docs/concepts/layers/) for the full breakdown. The
+rest of this page focuses on the clip kind, which is the most common.
 
 ## Frame rate
 
@@ -24,16 +30,17 @@ Common choices:
 
 ## Tracks
 
-Each track is a layer in the composite. Higher track numbers render on
-top. Each clip on a track has its own opacity, blend mode, and transform.
+Each track stacks bottom-to-top in the composite — higher track numbers
+render on top.
 
-Tracks have no fixed type — any track can host any clip. There are no
-"video tracks" vs "audio tracks" because entity's primary job is video
-playback; audio comes from the clip itself (when present).
+Tracks have no fixed type. Any track can host any layer kind: a clip
+layer next to an object-animation layer next to a generative layer.
+Audio doesn't have a separate track type because entity's primary job
+is video playback; audio is on the roadmap.
 
 ## Clips
 
-A clip is a reference to a media file plus:
+A clip layer is a reference to a media file plus:
 
 - **Start frame** on the timeline
 - **Duration** in timeline frames
@@ -41,7 +48,10 @@ A clip is a reference to a media file plus:
 - **Opacity**, **transform** (position, scale, rotation), **blend mode**
 - **Animated properties** (keyframes for position, scale, rotation,
   opacity)
-- **Target screen** — which logical screen this clip renders to
+- **Content routing** — which screens this clip plays on (see
+  [Projection → Content routing](/docs/projection/content-routing/))
+- **Effect chain** — ordered shader effects (see
+  [Concepts → Effects](/docs/concepts/effects/))
 - **Section behavior** — how this clip interacts with section break-points
 
 Clips are pure data. Move, split, duplicate, retime — none of that

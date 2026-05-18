@@ -24,11 +24,15 @@ Changes to OSC settings require a restart.
 |---|---|---|
 | `/entity/play` | none | Start playback from current playhead |
 | `/entity/pause` | none | Pause |
-| `/entity/stop` | none | Stop and reset to the start |
+| `/entity/stop` | none | Pause and reset to frame 0 |
 | `/entity/section/next` | none | Jump to the next section |
-| `/entity/section/previous` | none | Jump to the previous section |
 | `/entity/cue/{number}/go` | none | Jump to section with the given cue number |
-| `/entity/seek` | `int` (frame) | Seek to a specific timeline frame |
+| `/entity/seek` | numeric (frame) | Seek to a specific timeline frame |
+
+Plus a generative-layer namespace for Muncher (discrete UDLR + analog
+axes) — see the
+[full OSC reference](/docs/reference/osc-message-reference/) for the
+complete list.
 
 ## Pair with Bitfocus Companion
 
@@ -44,8 +48,10 @@ See the [Companion guide](/docs/control/companion/) for a worked example.
 
 ## Custom mappings
 
-Per-project custom OSC mappings (your own namespace, your own commands)
-are on the roadmap. For now the default namespace is fixed.
+The built-in namespace (transport, sections, cues, Muncher controls) is
+fixed and complete. **Per-project custom mappings** — remapping a
+user-defined address to an entity command, or routing entity events to
+your own namespace — are on the roadmap.
 
 ## Outbound OSC
 

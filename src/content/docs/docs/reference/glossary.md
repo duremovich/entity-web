@@ -32,9 +32,15 @@ composites against the layers below it (normal, add, multiply, etc.).
 ## C
 
 **Clip** — A single instance of media on a timeline track. Has its own
-position, duration, in-point, opacity, transform, blend mode, target
-screen, and keyframe animations. A clip references a media file but
-isn't the media file.
+position, duration, in-point, opacity, transform, blend mode, content
+routing, effect chain, and keyframe animations. A clip references a
+media file but isn't the media file. In the data model, a clip is a
+**Layer** of `Kind = Clip`.
+
+**Content routing** — Plane A of the two-tier mapping model: which
+logical sources (layers) feed which screens. Authored as **library
+entries** in the Content Routing window — Direct, Tiled, or Feed Map.
+See [Projection → Content routing](/docs/projection/content-routing/).
 
 **Compose target** — Internal name for the GPU render target that a
 screen composites into before fanout to physical outputs.
@@ -81,6 +87,12 @@ the per-frame tick of the timeline + decode + animation systems.
 **Fade seconds** — Per-section property controlling how long the
 outgoing clips take to fade out when the section is entered.
 
+**Feed Map** — A `ContentRoutingAsset` kind that names regions on a
+source canvas and routes each region to a target Screen. The Content
+Routing window exports an SVG template of the layout so content
+designers can author content that lines up with the regions. See
+[Projection → Content routing](/docs/projection/content-routing/).
+
 **Filename versioning** — entity treats `clip.mov` and `clip_v2.mov` as
 the same logical media. The newest version wins. The pattern is
 `<base>_v<tag>`. Drop a revised clip in next to the old one — the
@@ -90,11 +102,22 @@ timeline plays the new version.
 want the visible "stutter" of showing a 24fps source frame across
 multiple 60fps output frames. Renderer support is on the roadmap.
 
+**Generative layer** — A timeline layer of `Kind = Generative` that
+renders procedural content instead of decoded video. **Muncher** (a
+Pac-Man-style playfield with gamepad / OSC controls) is the v1
+reference implementation. See [Concepts → Layers](/docs/concepts/layers/).
+
 ## H
 
 **HAP / HAP Q / HAP Alpha** — A family of GPU-friendly codecs designed
 for media-server playback. Cheap to decode, supports many concurrent
 layers. First-class in entity.
+
+**HLSL effect pack** — A user-authored set of HLSL shaders the editor
+hot-reloads from a project's effects folder. The pack format is stable
+enough to ship sample packs alongside projects; a supported
+third-party SDK with ABI guarantees is on the roadmap. See
+[Concepts → Effects](/docs/concepts/effects/).
 
 ## I
 
@@ -104,24 +127,39 @@ across multi-projector arrays.
 
 ## L
 
+**Layer** — Anything that lives on a timeline track. Every layer has a
+`Kind` — **Clip**, **Object Animation**, or **Generative** — that
+determines what it produces. See [Concepts → Layers](/docs/concepts/layers/).
+
 **Lens model** — Internal math describing focal length, principal
 point, and pose for a calibrated projector. More accurate than a 2D
 homography because it accounts for off-axis distortion. See
 [Calibration](/docs/projection/calibration/).
 
-**Locked (section behavior)** — Per-clip policy. When set to Locked, a
-clip ignores section jumps — it keeps playing from its current
-position. Useful for ambient backgrounds. The other option is Normal.
+**Locked (section behavior)** — Per-layer policy. When set to Locked, a
+layer ignores section jumps — clips keep playing from their current
+frame, object-animation layers freeze the target transform at the
+break-time value. Useful for ambient backgrounds and parked stage
+moves. The other option is Normal.
 
 ## M
-
-**Mapping surface** — A calibrated projector output. The combination
-of a physical output + its calibration + its soft-edge settings.
 
 **Media bin** — UI panel listing every media file under `content/`.
 Folder structure mirrors disk.
 
+**Muncher** — The v1 generative layer kind — a Pac-Man-style playfield
+with gamepad and OSC controls. Proves the generative-layer pipeline
+end to end (input bus, snapshot bake, compositor integration). See
+[Concepts → Layers](/docs/concepts/layers/).
+
 ## O
+
+**Object Animation layer** — A timeline layer of `Kind =
+ObjectAnimation` that keyframe-drives a target Screen or Prop's
+transform (nine animatable axes: position X/Y/Z, rotation X/Y/Z, scale
+X/Y/Z). Two policy fields: `endBehavior` (Hold / Reset) and
+`sectionBehavior` (Normal / Locked). See
+[Concepts → Layers](/docs/concepts/layers/).
 
 **OSC** — *Open Sound Control.* The de facto show-control protocol over
 UDP. entity has an inbound OSC receiver enabled by default on port
@@ -129,10 +167,22 @@ UDP. entity has an inbound OSC receiver enabled by default on port
 
 **Output** — Short for **Physical output**.
 
+**OutputSurface** — A calibrated projection warp quad. The combination
+of a physical output + its calibration + its soft-edge settings. (Was
+called "MappingSurface" before the two-tier mapping rename in
+ADR-0021.)
+
 ## P
 
 **Pagefind** — The in-site search index used on these docs. Static, no
 external service.
+
+**Plane A** — The content-routing plane: which logical sources feed
+which screens. See **Content routing**.
+
+**Plane B** — The feed-output plane: how a screen's pixels reach
+physical outputs. Warping, soft edges, per-output input regions. See
+[Screens vs outputs](/docs/concepts/screens-vs-outputs/).
 
 **Physical output** — An actual display connected to the machine
 (HDMI / DP / DVI). Identified by EDID. Receives pixels from an assigned
@@ -173,14 +223,16 @@ widths and a gamma curve. See [Soft edges](/docs/projection/soft-edges/).
 
 ## T
 
-**Target screen** — Per-clip property assigning which logical screen
-the clip renders to.
+**Tiled routing** — A `ContentRoutingAsset` kind that slices a source
+canvas into a count of equal-width or equal-height tiles, each routed
+to one screen. Used for LED walls split across multiple logical
+screens.
 
 **Timeline frame rate** — The rate the timeline runs at, set at project
 creation. Clips with different native rates play at their own rate
 mapped onto the timeline.
 
-**Track** — A row on the timeline that hosts clips. Higher track
+**Track** — A row on the timeline that hosts layers. Higher track
 numbers render on top in the composite.
 
 **Tracy** — The CPU/GPU profiler integrated into entity. Connects

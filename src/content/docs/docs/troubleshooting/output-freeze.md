@@ -34,21 +34,20 @@ through red / green / blue across consecutive frames. Then:
   codebase. Use [PresentMon](https://github.com/GameTechDev/PresentMon)
   to confirm.
 
-## Known content-pipeline freezes
+## Per-system fallback status
 
 Some systems run only on the editor thread, so they stop ticking during
 stalls. As of writing:
 
-- **Timeline** — has show-thread fallback. Should not freeze.
-- **DecodeSystem** — has show-thread fallback. Should not freeze.
-- **AnimationSystem** — does **not** have a fallback yet. Animated
-  opacity / transform / rotation / scale will freeze during editor
-  stalls.
-- **SectionScheduler** — does **not** have a fallback yet. Section cues
-  fire late after the stall ends.
+| System | Status | Behavior during editor stall |
+|---|---|---|
+| **Timeline** | ✅ Fallback active | Show-thread fallback ticks the playhead. Atomic writes, no registry mutation. |
+| **DecodeSystem** | ✅ Fallback active | Show-thread fallback sets decoder target frames. Atomic writes only. |
+| **AnimationSystem** | ✅ Snapshot-bake | Keyframe tracks bake into the scene snapshot on the editor thread; the show thread re-evaluates them per render frame. Animation keeps moving during editor stalls. |
+| **SectionScheduler** | ⚠️ Partial | A freeze hook for Locked object-animation layers landed, so they hold correctly across breaks. But section break **detection** and **continuation-phase advancement** still stall — section cues fire late after a long editor stall ends. The full show-thread split is the only remaining known editor-stall gap. |
 
-If you're hitting an animation freeze or a late cue, you're not crazy —
-it's a known gap. Tracked on the roadmap.
+If you're hitting late cues after a long editor stall, you're not crazy
+— SectionScheduler's full fallback is on the roadmap.
 
 ## Mitigations
 

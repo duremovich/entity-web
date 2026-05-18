@@ -17,9 +17,11 @@ for a commercial media server, entity is meant to be that for free.
 
 ## Is it stable enough for a real show?
 
-It's in active development and pre-1.0. The core playback pipeline,
-projection mapping, and OSC control are functional. A few systems
-(AnimationSystem, SectionScheduler) have known gaps around editor-stall
+It's in active development and pre-1.0. Core playback, projection
+mapping, OSC control, per-layer effects, layered timelines (clips +
+object-animation + generative), and content routing are functional and
+used day-to-day; 510/510 ctests green at current HEAD. One known
+editor-stall gap remains — SectionScheduler's full show-thread
 fallback — see
 [Troubleshooting → Output frozen during editor drag](/docs/troubleshooting/output-freeze/).
 
@@ -83,6 +85,34 @@ First-class: ProRes (all variants including 4444 with alpha), HAP /
 HAP Q / HAP Alpha, PNG sequences. Playable but not recommended for
 live show: H.264, HEVC. See [Supported codecs](/docs/media/codecs/).
 
+## Does entity support per-layer effects?
+
+Yes. Every layer has an ordered shader chain — nine engine effects ship
+today (Gaussian blur, sharpen, vignette, pixelate, chromatic aberration,
+edge detect, brightness/contrast, hue/saturation, invert) and you can
+author your own as **HLSL effect packs**. Two editors: a stack view in
+the property panel for quick tweaks, and a node-graph editor for
+branching chains. See
+[Concepts → Effects](/docs/concepts/effects/).
+
+## Can I author content against an LED wall layout?
+
+Yes — that's what **Feed Maps** are for. Define a source canvas size,
+draw named regions on it that map to physical screens, export an SVG
+template, hand it to the content designer. Whatever they paint inside
+each named region lands on the matching screen at show time. See
+[Projection → Content routing](/docs/projection/content-routing/).
+
+## What's a generative layer? Is Muncher a serious feature?
+
+Generative layers are first-class timeline layers that render procedural
+content instead of decoded video. Muncher — a Pac-Man-style playfield
+with gamepad and OSC controls — is the v1 reference implementation.
+The architecture supports adding more kinds; Muncher proves the pipeline
+end to end (input bus, compositor integration, OSC routing, snapshot
+bake for show-thread rendering). See
+[Concepts → Layers](/docs/concepts/layers/).
+
 ## How do I report a bug?
 
 Capture a [script](/docs/control/scripts/) that reproduces it if you
@@ -98,11 +128,18 @@ build locally, PR.
 
 ## Can I write a plugin / extend entity?
 
-Not today. A user plugin SDK is on the [roadmap](/docs/roadmap/) — the
-internal plugin architecture exists, but the SDK isn't a supported
-public surface yet. If you have a specific extension in mind, start a
+The plugin API is real and load-bearing — OSC receiver and bus-logger
+ship as first-party plugins, and the C++ API headers (`plugin-api/`)
+are Apache 2.0 licensed so plugins don't inherit GPLv3. What's still
+queued is a *supported third-party SDK* with stable ABI guarantees,
+docs, and a getting-started flow. If you have a specific extension in
+mind today, copy from `plugins/bus-logger/` and start a
 [Discussion](https://github.com/duremovich/Entity/discussions) so it
 shapes what we ship.
+
+For HLSL shaders specifically, no plugin needed — drop an effect pack
+into the project's effects folder and it hot-reloads. See
+[Concepts → Effects](/docs/concepts/effects/).
 
 ## Will entity ever be cloud-based / SaaS?
 

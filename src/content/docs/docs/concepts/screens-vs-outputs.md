@@ -63,3 +63,22 @@ Two reasons:
    projector to a physical surface (see
    [Projection](/docs/projection/calibration/)), the calibration lives
    with the output, not the screen.
+
+## Two planes (the bigger picture)
+
+The screen ↔ output relationship is one half of how content reaches a
+projector. The other half is **content routing** — which layer's pixels
+end up on which screen. Together they form a two-plane mapping model:
+
+- **Plane A: Content routing** — which logical sources feed which
+  screens. Per-layer: "this clip plays on Screen X" or "tile-route this
+  content across four LED panels." Authored in the Content Routing
+  library. See
+  [Projection → Content routing](/docs/projection/content-routing/).
+- **Plane B: Feed output** — how a screen's pixels reach physical
+  outputs. Warping, soft edges, per-output input regions. Authored in
+  the Outputs window — this is what the rest of *this* page is about.
+
+Keeping them separate means the same content can be re-routed without
+re-touching projection calibration, and the same projection calibration
+can be re-targeted without re-cutting the content.

@@ -43,19 +43,25 @@ From the **Section** menu:
 These are also addressable from [OSC](/docs/control/osc/), which is how a
 stage manager or show caller will drive them.
 
-## Per-clip section behavior
+## Per-layer section behavior
 
-Each clip has a `sectionBehavior` property that controls what happens to
-the clip when a section break is crossed:
+Every layer kind (clip, object-animation, generative) has a
+`sectionBehavior` property that controls what happens when a section
+break is crossed:
 
-- **Normal** (default) — when you jump to a section, the clip plays from
-  its in-point relative to the new playhead position. Standard cue
-  behavior.
-- **Locked** — when you jump to a section, this clip continues from where
-  it was. Useful for background elements (ambient loops, lower-thirds)
-  that shouldn't restart on a cue jump.
+- **Normal** (default) — when you jump to a section, the layer
+  resumes from its in-point relative to the new playhead position.
+  Standard cue behavior. Clip layers re-decode; object-animation
+  layers re-evaluate; generative layers continue ticking against the
+  new playhead.
+- **Locked** — when you jump to a section, this layer freezes in
+  place. For a clip, that means it keeps playing from its current
+  frame. For an object-animation layer, the target transform stays
+  at whatever the keyframes evaluated to at the moment of the break.
+  Useful for ambient backgrounds and "parked" stage moves that
+  shouldn't reset on a cue.
 
-`sectionBehavior` is a per-clip policy, not a reference to a specific
+`sectionBehavior` is a per-layer policy, not a reference to a specific
 section.
 
 ## Continuation phase
