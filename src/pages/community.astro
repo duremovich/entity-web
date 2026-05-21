@@ -60,10 +60,10 @@ import Layout from '../components/Layout.astro';
 
 <style>
   .community {
-    padding: 96px 32px 64px;
+    padding: calc(var(--section-pad-y) + 8px) var(--page-pad-x) var(--section-pad-y);
   }
   .community__inner {
-    max-width: 920px;
+    max-width: var(--container-text);
     margin: 0 auto;
   }
   .community h1 {

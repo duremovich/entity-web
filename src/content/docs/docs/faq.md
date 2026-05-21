@@ -20,10 +20,7 @@ for a commercial media server, entity is meant to be that for free.
 It's in active development and pre-1.0. Core playback, projection
 mapping, OSC control, per-layer effects, layered timelines (clips +
 object-animation + generative), and content routing are functional and
-used day-to-day; 510/510 ctests green at current HEAD. One known
-editor-stall gap remains — SectionScheduler's full show-thread
-fallback — see
-[Troubleshooting → Output frozen during editor drag](/docs/troubleshooting/output-freeze/).
+used day-to-day; 510/510 ctests green at current HEAD.
 
 For a real show today: do a full tech rehearsal on the actual hardware,
 and don't bet on features marked "in progress" on the
@@ -102,16 +99,6 @@ draw named regions on it that map to physical screens, export an SVG
 template, hand it to the content designer. Whatever they paint inside
 each named region lands on the matching screen at show time. See
 [Projection → Content routing](/docs/projection/content-routing/).
-
-## What's a generative layer? Is Muncher a serious feature?
-
-Generative layers are first-class timeline layers that render procedural
-content instead of decoded video. Muncher — a Pac-Man-style playfield
-with gamepad and OSC controls — is the v1 reference implementation.
-The architecture supports adding more kinds; Muncher proves the pipeline
-end to end (input bus, compositor integration, OSC routing, snapshot
-bake for show-thread rendering). See
-[Concepts → Layers](/docs/concepts/layers/).
 
 ## How do I report a bug?
 

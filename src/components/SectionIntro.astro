@@ -1,0 +1,48 @@
+---
+// Shared eyebrow → heading → lede block. Single source of truth for
+// marketing section intros so margins and lede width don't drift.
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  lede?: string;
+  align?: 'left' | 'center';
+}
+const { eyebrow, heading, lede, align = 'left' } = Astro.props;
+---
+
+<div class={`section-intro section-intro--${align}`}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h2>{heading}</h2>
+  {lede && <p class="section-intro__lede">{lede}</p>}
+</div>
+
+<style>
+  .section-intro {
+    margin-bottom: 48px;
+  }
+  .section-intro--center {
+    text-align: center;
+  }
+  .section-intro h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 12px 0 0;
+    max-width: 22ch;
+  }
+  .section-intro--center h2 {
+    max-width: 20ch;
+    margin-inline: auto;
+  }
+  .section-intro__lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    max-width: 64ch;
+    margin: 16px 0 0;
+  }
+  .section-intro--center .section-intro__lede {
+    margin-inline: auto;
+  }
+</style>

@@ -1,4 +1,6 @@
 ---
+import SectionIntro from './SectionIntro.astro';
+
 const cases = [
   {
     role: 'Projection mapping artist',
@@ -20,7 +22,7 @@ const cases = [
     role: 'Live installation studio',
     headline: 'Run unattended for months.',
     body:
-      'A project is a folder. Copy it to the install machine, point the file association, set the editor to fullscreen on primary, autostart on boot. Filename versioning means content updates are a drop-in.',
+      'Hand the whole project folder to the install machine — point the file association, set the editor to fullscreen on primary, autostart on boot. Filename versioning means content updates are a drop-in.',
     docLink: '/docs/concepts/projects-on-disk/',
     docLabel: 'Project layout',
   },
@@ -29,15 +31,11 @@ const cases = [
 
 <section class="use">
   <div class="use__inner">
-    <p class="eyebrow">Who it's for</p>
-    <h2>Built for the people running the show.</h2>
-    <p class="use__lede">
-      entity is sharp where live show is sharp — show-control protocols,
-      frame-accurate trigger, projection mapping math, multi-output
-      routing. It's not a creative-content tool; it's the thing that
-      plays your creative content reliably when someone in headset says
-      go.
-    </p>
+    <SectionIntro
+      eyebrow="Who it's for"
+      heading="Built for the people running the show."
+      lede="entity is sharp where live show is sharp — show-control protocols, frame-accurate trigger, projection mapping math, multi-output routing. It's not a creative-content tool; it's the thing that plays your creative content reliably when someone in headset says go."
+    />
 
     <div class="use__grid">
       {
@@ -46,7 +44,9 @@ const cases = [
             <div class="use__role">{c.role}</div>
             <h3>{c.headline}</h3>
             <p>{c.body}</p>
-            <a href={c.docLink}>{c.docLabel} →</a>
+            <a href={c.docLink} class="link-arrow use__card-link">
+              {c.docLabel} →
+            </a>
           </article>
         ))
       }
@@ -56,26 +56,11 @@ const cases = [
 
 <style>
   .use {
-    padding: 96px 32px;
+    padding: var(--section-pad-y) var(--page-pad-x);
   }
   .use__inner {
-    max-width: 1280px;
+    max-width: var(--container-wide);
     margin: 0 auto;
-  }
-  .use h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin: 12px 0 16px;
-    max-width: 22ch;
-  }
-  .use__lede {
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--color-ink-dim);
-    max-width: 64ch;
-    margin: 0 0 56px;
   }
   .use__grid {
     display: grid;
@@ -112,15 +97,8 @@ const cases = [
     margin: 0;
     flex-grow: 1;
   }
-  .use__card a {
+  .use__card-link {
     margin-top: 8px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-  .use__card a:hover {
-    color: var(--color-iris-to);
   }
   @media (max-width: 960px) {
     .use__grid {

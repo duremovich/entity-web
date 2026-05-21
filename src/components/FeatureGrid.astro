@@ -1,9 +1,11 @@
 ---
+import SectionIntro from './SectionIntro.astro';
+
 const features = [
   {
-    title: 'Multi-layer playback',
+    title: 'Real-time decode',
     body:
-      'Composite many video and image layers in real time with GPU blend modes, transparency, and frame-accurate scrub. Decode pipeline is per-clip and lock-free.',
+      'Every clip runs its own lock-free decode pipeline, so many video streams play and scrub at once without stutter. Frame-accurate seeking, no global decode lock.',
   },
   {
     title: 'Professional codecs',
@@ -50,14 +52,11 @@ const features = [
 
 <section class="features">
   <div class="features__inner">
-    <p class="eyebrow">What it does</p>
-    <h2>Designed around the live-show contract</h2>
-    <p class="features__lede">
-      Most media servers were built to make pretty things in software. entity
-      was built around one rule: when the curtain goes up, the projectors must
-      keep playing — even when the operator hits an OS dialog, plugs in a
-      display, or scrubs the timeline mid-cue.
-    </p>
+    <SectionIntro
+      eyebrow="What it does"
+      heading="Designed around the live-show contract"
+      lede="Most media servers were built to make pretty things in software. entity was built around one rule: when the curtain goes up, the projectors must keep playing — even when the operator hits an OS dialog, plugs in a display, or scrubs the timeline mid-cue."
+    />
 
     <div class="features__grid">
       {
@@ -74,26 +73,11 @@ const features = [
 
 <style>
   .features {
-    padding: 96px 32px 64px;
+    padding: var(--section-pad-y) var(--page-pad-x);
   }
   .features__inner {
-    max-width: 1280px;
+    max-width: var(--container-wide);
     margin: 0 auto;
-  }
-  .features h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin: 12px 0 16px;
-    max-width: 22ch;
-  }
-  .features__lede {
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--color-ink-dim);
-    max-width: 64ch;
-    margin: 0 0 56px;
   }
   .features__grid {
     display: grid;

@@ -20,7 +20,7 @@
         >Bitfocus Companion</a> and you inherit hundreds of show-hardware
         modules — Stream Deck, X-keys, MIDI surfaces, vendor consoles.
       </p>
-      <a href="/docs/control/osc/" class="ctrl__link">OSC reference →</a>
+      <a href="/docs/control/osc/" class="link-arrow ctrl__link">OSC reference →</a>
     </div>
 
     <div class="ctrl__term">
@@ -53,10 +53,10 @@
 
 <style>
   .ctrl {
-    padding: 96px 32px;
+    padding: var(--section-pad-y) var(--page-pad-x);
   }
   .ctrl__inner {
-    max-width: 1280px;
+    max-width: var(--container-wide);
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -84,9 +84,6 @@
   .ctrl__link {
     display: inline-block;
     margin-top: 24px;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    text-decoration: none;
   }
   .ctrl__term {
     border-radius: 12px;

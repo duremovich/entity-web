@@ -27,7 +27,6 @@ src/
 ├── pages/                  Astro pages — marketing routes
 │   ├── index.astro             /
 │   ├── download.astro          /download/
-│   ├── brand.astro             /brand/
 │   └── community.astro         /community/
 ├── content/docs/docs/      Starlight docs — served under /docs/*
 │   ├── getting-started/
@@ -35,7 +34,6 @@ src/
 │   ├── media/
 │   ├── projection/
 │   ├── control/
-│   ├── plugins/
 │   ├── reference/
 │   └── troubleshooting/
 ├── components/             shared Astro components

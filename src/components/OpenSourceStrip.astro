@@ -21,11 +21,11 @@
           href="https://github.com/duremovich/Entity"
           target="_blank"
           rel="noopener noreferrer"
-          class="oss__link"
+          class="link-arrow"
         >
           github.com/duremovich/Entity ↗
         </a>
-        <a href="/docs/roadmap/" class="oss__link oss__link--ghost">
+        <a href="/docs/roadmap/" class="link-arrow link-arrow--muted">
           Roadmap →
         </a>
       </div>
@@ -49,10 +49,10 @@
 
 <style>
   .oss {
-    padding: 64px 32px;
+    padding: var(--section-pad-y) var(--page-pad-x);
   }
   .oss__inner {
-    max-width: 1280px;
+    max-width: var(--container-wide);
     margin: 0 auto;
     padding: 48px;
     border-radius: 16px;
@@ -102,20 +102,6 @@
     display: flex;
     gap: 24px;
     flex-wrap: wrap;
-  }
-  .oss__link {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .oss__link:hover {
-    color: var(--color-iris-to);
-  }
-  .oss__link--ghost {
-    color: var(--color-ink);
-    font-family: var(--font-display);
   }
   .oss__badges {
     display: flex;

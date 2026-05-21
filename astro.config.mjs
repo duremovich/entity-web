@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://entitymedia.art',
   trailingSlash: 'always',
+  devToolbar: { enabled: false },
 
   integrations: [
     starlight({
@@ -18,6 +19,9 @@ export default defineConfig({
         alt: 'entity mark',
       },
       favicon: '/brand/svg/mark.svg',
+      // Show "Last updated" on docs pages — a low-effort "actively
+      // maintained" signal. Reads each file's last git commit date.
+      lastUpdated: true,
       head: [
         {
           tag: 'link',

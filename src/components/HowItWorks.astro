@@ -1,10 +1,12 @@
 ---
+import SectionIntro from './SectionIntro.astro';
+
 const steps = [
   {
     n: '01',
     title: 'Drop media in',
     body:
-      'Your project is a folder. Paste ProRes, HAP, or PNG sequences into content/ — even while the editor is running. The content scanner picks them up within a frame.',
+      'Everything lives in one folder. Paste ProRes, HAP, or PNG sequences into content/ — even while the editor is running. The content scanner picks them up within a frame.',
     foot: 'No re-import step. No "where did my media go" after copying a project to a new machine.',
   },
   {
@@ -26,13 +28,11 @@ const steps = [
 
 <section class="how">
   <div class="how__inner">
-    <p class="eyebrow">How it works</p>
-    <h2>Three stages, no mystery.</h2>
-    <p class="how__lede">
-      A project goes from empty folder to playing show in three concrete
-      moves. Each one is a separate file or document menu — nothing is
-      hidden in a side-effect.
-    </p>
+    <SectionIntro
+      eyebrow="How it works"
+      heading="Three stages, no mystery."
+      lede="A project goes from empty folder to playing show in three concrete moves. Each one is a separate file or document menu — nothing is hidden in a side-effect."
+    />
 
     <ol class="how__steps">
       {
@@ -53,7 +53,7 @@ const steps = [
 
 <style>
   .how {
-    padding: 96px 32px;
+    padding: var(--section-pad-y) var(--page-pad-x);
     background: linear-gradient(
       180deg,
       rgba(58, 26, 90, 0.18),
@@ -61,23 +61,8 @@ const steps = [
     );
   }
   .how__inner {
-    max-width: 1280px;
+    max-width: var(--container-wide);
     margin: 0 auto;
-  }
-  .how h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin: 12px 0 16px;
-    max-width: 22ch;
-  }
-  .how__lede {
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--color-ink-dim);
-    max-width: 64ch;
-    margin: 0 0 56px;
   }
   .how__steps {
     list-style: none;

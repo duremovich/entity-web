@@ -14,14 +14,14 @@ const platforms = [
     status: 'roadmap',
     statusLabel: 'On the roadmap',
     detail:
-      'Apple Silicon + Intel. Metal renderer port is queued behind the Phase D feature work. No ETA yet.',
+      'Apple Silicon + Intel. The Metal renderer port comes after the current feature work lands. No ETA yet.',
   },
   {
     name: 'Linux',
     status: 'roadmap',
     statusLabel: 'On the roadmap',
     detail:
-      'Vulkan renderer port. Lands after the macOS port — same backend split as the Pro outputs work.',
+      'Vulkan renderer port. Lands after macOS — both share the same renderer-backend split.',
   },
 ];
 
@@ -94,7 +94,7 @@ function cellClass(value: CellValue): string {
             OSC control. Full engine source under GPLv3 — read it, modify
             it, run it.
           </p>
-          <a href="#build-from-source" class="edition__cta edition__cta--primary">
+          <a href="#build-from-source" class="btn btn--primary edition__cta">
             Build from source ↓
           </a>
           <p class="edition__sub">
@@ -115,7 +115,7 @@ function cellClass(value: CellValue): string {
             href="https://github.com/duremovich/Entity/discussions"
             target="_blank"
             rel="noopener noreferrer"
-            class="edition__cta edition__cta--ghost"
+            class="btn btn--ghost edition__cta"
           >
             Pre-register interest ↗
           </a>
@@ -212,7 +212,7 @@ build\\bin\\Release\\EntityMediaEditor.exe`}</code></pre>
         href="https://github.com/duremovich/Entity"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn"
+        class="btn btn--primary"
       >
         github.com/duremovich/Entity ↗
       </a>
@@ -223,11 +223,11 @@ build\\bin\\Release\\EntityMediaEditor.exe`}</code></pre>
 <style>
   /* ---------- hero ---------- */
   .dl-hero {
-    padding: 96px 32px 48px;
+    padding: calc(var(--section-pad-y) + 8px) var(--page-pad-x) var(--section-pad-y);
     position: relative;
   }
   .dl-hero__inner {
-    max-width: 1080px;
+    max-width: var(--container-text);
     margin: 0 auto;
   }
   .dl-hero h1 {
@@ -259,22 +259,22 @@ build\\bin\\Release\\EntityMediaEditor.exe`}</code></pre>
 
   /* ---------- sections ---------- */
   .dl-section {
-    padding: 64px 32px;
+    padding: var(--section-pad-y) var(--page-pad-x);
   }
   .dl-section--alt {
     background: linear-gradient(180deg, rgba(58,26,90,0.18), rgba(31,10,53,0));
   }
   .dl-section__inner {
-    max-width: 1080px;
+    max-width: var(--container-text);
     margin: 0 auto;
   }
   .dl-section__heading {
-    font-size: 12px;
+    font-size: clamp(28px, 3.2vw, 38px);
     font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin: 0 0 32px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-ink);
+    margin: 0 0 28px;
   }
   .dl-section__lede {
     font-size: 15px;
@@ -355,31 +355,7 @@ build\\bin\\Release\\EntityMediaEditor.exe`}</code></pre>
     flex-grow: 1;
   }
   .edition__cta {
-    display: inline-flex;
-    align-items: center;
-    padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    font-family: var(--font-mono);
-    border: 1px solid transparent;
     align-self: flex-start;
-  }
-  .edition__cta--primary {
-    background: var(--color-accent);
-    color: #1a0928;
-  }
-  .edition__cta--primary:hover {
-    background: #ff8c45;
-  }
-  .edition__cta--ghost {
-    color: var(--color-ink);
-    border-color: rgba(255, 255, 255, 0.16);
-  }
-  .edition__cta--ghost:hover {
-    border-color: rgba(255, 255, 255, 0.32);
-    background: rgba(255, 255, 255, 0.04);
   }
   .edition__sub {
     margin: 4px 0 0;
@@ -504,25 +480,13 @@ build\\bin\\Release\\EntityMediaEditor.exe`}</code></pre>
     justify-content: space-between;
     gap: 32px;
   }
+  .dl-notify .dl-section__heading {
+    margin-bottom: 12px;
+  }
   .dl-notify p {
     color: var(--color-ink-dim);
     margin: 0;
     font-size: 15px;
-  }
-  .btn {
-    display: inline-flex;
-    padding: 12px 24px;
-    border-radius: 8px;
-    background: var(--color-accent);
-    color: #1a0928;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    font-family: var(--font-mono);
-    white-space: nowrap;
-  }
-  .btn:hover {
-    background: #ff8c45;
   }
 
   /* ---------- responsive ---------- */

@@ -8,8 +8,6 @@ sidebar:
 
 When something goes wrong in entity, work from symptoms outward:
 
-- **[Output frozen during editor drag](/docs/troubleshooting/output-freeze/)** —
-  projected image freezes while you interact with the editor
 - **[Black screen / no output](/docs/troubleshooting/black-screen/)** —
   a physical output shows nothing
 - **[Decoder errors](/docs/troubleshooting/decoder-errors/)** — a clip

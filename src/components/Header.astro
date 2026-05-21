@@ -3,6 +3,7 @@
 const links = [
   { href: '/docs/', label: 'Docs' },
   { href: '/download/', label: 'Download' },
+  { href: '/community/', label: 'Community' },
   { href: 'https://github.com/duremovich/Entity', label: 'GitHub', external: true },
 ];
 ---
@@ -10,7 +11,17 @@ const links = [
 <header class="site-header">
   <div class="site-header__inner">
     <a href="/" class="site-header__brand" aria-label="entity — home">
-      <img src="/brand/svg/wordmark-transparent.svg" alt="entity" />
+      <img
+        class="site-header__mark"
+        src="/brand/svg/mark.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="site-header__wordmark"
+        src="/brand/svg/wordmark-transparent.svg"
+        alt="entity"
+      />
     </a>
     <nav class="site-header__nav" aria-label="primary">
       {
@@ -46,10 +57,22 @@ const links = [
     justify-content: space-between;
     gap: 32px;
   }
-  .site-header__brand img {
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+  }
+  .site-header__mark {
     height: 32px;
     width: auto;
     display: block;
+  }
+  .site-header__wordmark {
+    height: 26px;
+    width: auto;
+    display: block;
+    /* The wordmark SVG carries ~30px of transparent padding on its
+       left edge; pull it back so it reads as one tight lockup. */
+    margin-left: -20px;
   }
   .site-header__nav {
     display: flex;
