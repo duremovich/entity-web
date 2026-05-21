@@ -16,9 +16,10 @@ npm run check      # astro check (TS, frontmatter, links)
 
 ## Hosting
 
-Currently **local-only**. Will be wired to a host (likely Cloudflare Pages) when the content is in better shape.
-
-Target domain: [entitymedia.art](https://entitymedia.art) (already owned).
+Deployed on **Cloudflare** (Workers static assets) at
+[entitymedia.art](https://entitymedia.art). Every push to `main` triggers a
+build (`npm run build`) and deploy (`npx wrangler deploy`) through the
+Cloudflare Git integration; deploy config lives in `wrangler.jsonc`.
 
 ## Project layout
 
@@ -71,7 +72,6 @@ for how user accounts + Pro licensing will slot in.
 - [ ] Polish landing screenshot / hero visual
 - [ ] First-pass screenshots throughout `/docs/`
 - [ ] Showcase page (when shows ship using entity)
-- [ ] Connect to host (Cloudflare Pages) and point DNS at entitymedia.art
 - [ ] Search index sanity check after first major doc pass
 - [ ] Blog / changelog (when releases exist)
 - [ ] Flip `output: 'static'` → `'hybrid'` when first Pro plugin is days from shipping
