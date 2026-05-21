@@ -64,9 +64,9 @@ Not yet. Audio tracks in source files are ignored. Audio playback is
 on the [roadmap](/docs/roadmap/) — basic clip audio first, then
 per-output routing.
 
-For now: drive audio from a sibling application (Reaper / QLab / a
-sound system desk) and trigger them from the same OSC or timecode
-source that triggers entity.
+For now: drive audio from a sibling application (a DAW, show-control
+software, or a sound system desk) and trigger them from the same OSC
+or timecode source that triggers entity.
 
 ## What platforms are supported?
 

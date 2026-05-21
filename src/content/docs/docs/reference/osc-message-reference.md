@@ -46,7 +46,7 @@ outbound OSC.
 | `/entity/cue/{number}/go` | — | Jump to the section with the given cue number |
 
 `{number}` in `/entity/cue/{n}/go` is parsed as a double, so
-QLab-style fractional cue numbers like `1.5` or `2.10` work as
+fractional cue numbers like `1.5` or `2.10` work as
 addressable cue identifiers.
 
 ### Examples
@@ -73,7 +73,7 @@ Companion-friendly buttons and continuous analog axes.
 | `/entity/muncher/stop` | — | Halt (both axes 0) |
 
 These are ideal for Bitfocus Companion buttons, Stream Deck keys, or
-QLab triggers.
+show-control cues.
 
 ### Analog axes
 
