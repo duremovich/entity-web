@@ -1,38 +1,70 @@
 ---
-// Terminal-styled OSC preview. Reinforces "show-control ready" without
-// needing a screenshot.
+// Show-control section: two-way positioning, a live OSC terminal demo, and
+// a protocol strip showing what ships today vs. what's on the roadmap.
+const protocols = [
+  {
+    name: 'OSC',
+    status: 'live',
+    statusLabel: 'Live today',
+    body: 'Cue entity from any OSC source, and stream its transport and section state back out.',
+  },
+  {
+    name: 'MIDI Show Control',
+    status: 'roadmap',
+    statusLabel: 'On the roadmap',
+    body: 'Take MSC cue pings to advance the timeline, or call cues out to lighting consoles and QLab.',
+  },
+  {
+    name: 'LTC / SMPTE timecode',
+    status: 'roadmap',
+    statusLabel: 'On the roadmap',
+    body: 'Chase an external clock so playback stays locked to the rest of the show.',
+  },
+  {
+    name: 'DMX (Art-Net / sACN)',
+    status: 'roadmap',
+    statusLabel: 'On the roadmap',
+    body: "Drive fixtures from control layers, or let a lighting desk drive entity's parameters.",
+  },
+];
 ---
 
 <section class="ctrl">
   <div class="ctrl__inner">
-    <div class="ctrl__copy">
-      <p class="eyebrow">Show control</p>
-      <h2>Speaks OSC out of the box.</h2>
-      <p>
-        Stage manager calls a cue from a Stream Deck. The button sends OSC.
-        entity hears it and fires the section. No middleware.
-      </p>
-      <p>
-        Pair it with <a
-          href="https://bitfocus.io/companion"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Bitfocus Companion</a> and you inherit hundreds of show-hardware
-        modules — Stream Deck, X-keys, MIDI surfaces, vendor consoles.
-      </p>
-      <a href="/docs/control/osc/" class="link-arrow ctrl__link">OSC reference →</a>
-    </div>
-
-    <div class="ctrl__term">
-      <div class="ctrl__term-bar">
-        <span class="ctrl__term-dot ctrl__term-dot--r"></span>
-        <span class="ctrl__term-dot ctrl__term-dot--y"></span>
-        <span class="ctrl__term-dot ctrl__term-dot--g"></span>
-        <span class="ctrl__term-title">
-          udp 127.0.0.1:53000 — entity receiver
-        </span>
+    <div class="ctrl__main">
+      <div class="ctrl__copy">
+        <p class="eyebrow">Show control</p>
+        <h2>Takes cues. Gives cues.</h2>
+        <p>
+          A show is a chain of gear taking cues off each other. entity sits in
+          that chain as a full member — it advances its own timeline off cues
+          from the stage manager's desk, and it calls cues back out to
+          everything else in the rig.
+        </p>
+        <p>
+          Today that's OSC, both directions. A Stream Deck button sends a cue,
+          entity hears it and fires the section — and entity broadcasts its own
+          transport and section state back out for the rest of the rig to
+          follow. No middleware. Pair it with <a
+            href="https://bitfocus.io/companion"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Bitfocus Companion</a> and you inherit hundreds of show-hardware
+          modules.
+        </p>
+        <a href="/docs/control/" class="link-arrow ctrl__link">Show control docs →</a>
       </div>
-      <pre class="ctrl__term-body"><code><span class="c">{`# Start the show`}</span>
+
+      <div class="ctrl__term">
+        <div class="ctrl__term-bar">
+          <span class="ctrl__term-dot ctrl__term-dot--r"></span>
+          <span class="ctrl__term-dot ctrl__term-dot--y"></span>
+          <span class="ctrl__term-dot ctrl__term-dot--g"></span>
+          <span class="ctrl__term-title">
+            udp 127.0.0.1:53000 — entity receiver
+          </span>
+        </div>
+        <pre class="ctrl__term-body"><code><span class="c">{`# Start the show`}</span>
 <span class="o">/entity/play</span>
 
 <span class="c">{`# Cue 5 — top of Act II`}</span>
@@ -47,6 +79,23 @@
 <span class="c">{`# Hold and reset`}</span>
 <span class="o">/entity/pause</span>
 <span class="o">/entity/stop</span></code></pre>
+      </div>
+    </div>
+
+    <div class="ctrl__protocols">
+      {
+        protocols.map((p) => (
+          <article class="ctrl__proto">
+            <div class="ctrl__proto-head">
+              <h3>{p.name}</h3>
+              <span class={`ctrl__proto-tag ctrl__proto-tag--${p.status}`}>
+                {p.statusLabel}
+              </span>
+            </div>
+            <p>{p.body}</p>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -58,6 +107,8 @@
   .ctrl__inner {
     max-width: var(--container-wide);
     margin: 0 auto;
+  }
+  .ctrl__main {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 64px;
@@ -131,10 +182,62 @@
   .ctrl__term-body .c { color: rgba(255, 255, 255, 0.4); }
   .ctrl__term-body .o { color: #5dff8a; font-weight: 500; }
   .ctrl__term-body .n { color: #ff7a2e; }
+
+  .ctrl__protocols {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .ctrl__proto {
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid var(--color-line);
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ctrl__proto-head {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ctrl__proto h3 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .ctrl__proto-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .ctrl__proto-tag--live { color: #5dff8a; }
+  .ctrl__proto-tag--roadmap { color: var(--color-ink-dim); }
+  .ctrl__proto p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    margin: 0;
+  }
+
   @media (max-width: 960px) {
-    .ctrl__inner {
+    .ctrl__main {
       grid-template-columns: 1fr;
       gap: 40px;
+    }
+    .ctrl__protocols {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 40px;
+    }
+  }
+  @media (max-width: 560px) {
+    .ctrl__protocols {
+      grid-template-columns: 1fr;
     }
   }
 </style>
