@@ -29,4 +29,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # wrangler-action defaults to wrangler 3.x, which can't deploy an
+          # assets-only Worker (no `main`). wrangler.jsonc needs 4.x.
+          wranglerVersion: "4"
           command: deploy
