@@ -99,7 +99,6 @@ export default defineConfig({
         {
           label: 'About',
           items: [
-            { label: 'Roadmap', link: '/docs/roadmap/' },
             { label: 'FAQ', link: '/docs/faq/' },
           ],
         },

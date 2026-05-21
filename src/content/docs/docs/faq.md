@@ -23,8 +23,7 @@ object-animation + generative), and content routing are functional and
 used day-to-day; 510/510 ctests green at current HEAD.
 
 For a real show today: do a full tech rehearsal on the actual hardware,
-and don't bet on features marked "in progress" on the
-[Roadmap](/docs/roadmap/).
+and don't bet on features that are still in active development.
 
 ## License
 
@@ -46,7 +45,7 @@ may be paths that suit your use case better than the GPL.
 
 A **Pro** edition is planned with NDI / SDI output, Notch block
 playback, multi-node sync, and priority support. Not for sale yet. See
-the [Download page](/download/) and [Roadmap](/docs/roadmap/).
+the [Download page](/download/).
 
 ## How does Pro licensing work?
 
@@ -58,8 +57,7 @@ air-gapped show machines. Details when the first Pro feature lands.
 ## Does entity play audio?
 
 Not yet. Audio tracks in source files are ignored. Audio playback is
-on the [roadmap](/docs/roadmap/) — basic clip audio first, then
-per-output routing.
+on the roadmap — basic clip audio first, then per-output routing.
 
 For now: drive audio from a sibling application (a DAW, show-control
 software, or a sound system desk) and trigger them from the same OSC

@@ -66,13 +66,3 @@ licensed as in the engine repo.
 `docs-internal/` holds design notes that aren't user-facing (not served
 by Starlight). See [`PLAN-auth-and-licensing.md`](./docs-internal/PLAN-auth-and-licensing.md)
 for how user accounts + Pro licensing will slot in.
-
-## Roadmap
-
-- [ ] Polish landing screenshot / hero visual
-- [ ] First-pass screenshots throughout `/docs/`
-- [ ] Showcase page (when shows ship using entity)
-- [ ] Search index sanity check after first major doc pass
-- [ ] Blog / changelog (when releases exist)
-- [ ] Flip `output: 'static'` → `'hybrid'` when first Pro plugin is days from shipping
-- [ ] Wire auth (Clerk lean) + commerce (Paddle lean) + license keys (Keygen lean)
